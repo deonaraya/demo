@@ -5,8 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -14,13 +12,13 @@ import java.util.List;
  * Created by chandrad on 2/4/17.
  */
 
-public class CatalogPage {
+public class CatalogPage extends BasePage {
 
-    WebDriver driver ;
-    WebDriverWait wait ;
+ //   WebDriver driver ;
+ //   WebDriverWait wait ;
 
     public CatalogPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver,this);
     }
 
@@ -80,32 +78,35 @@ public class CatalogPage {
     private WebElement addToCartButton3 ;
 
 
-    public void waitforElement(WebElement element){
-        wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOf(element));
+//    public CatalogPage waitforElement(WebElement element){
+//        wait = new WebDriverWait(driver, 10);
+//        wait.until(ExpectedConditions.visibilityOf(element));
+//
+//        return new CatalogPage(driver);
+//      //  return this ;
+//    }
 
+    public CatalogPage waitUntilPageLoads(){
+       waitforElement(catalogTabs);
+        return this;
     }
 
-    public void waitUntilPageLoads(){
-        waitforElement(catalogTabs);
-    }
-
-    public void getProductNames(){
+    public CatalogPage getProductNames(){
         for (WebElement name: productNames
              ) {
             System.out.println("Product names are listed in order as " + name.getText());
         }
-
+    return new CatalogPage(driver);
     }
 
-    public void addItemToCart(){
+    public AddToCartPopUpPage addItemToCart(){
 
         Actions action = new Actions(driver);
         action.moveToElement(productContainer3).build().perform();
         waitforElement(addToCartButton3);
         addToCartButton3.click();
 
-
+        return new AddToCartPopUpPage(driver);
     }
 
 
