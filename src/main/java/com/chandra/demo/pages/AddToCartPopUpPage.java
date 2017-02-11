@@ -42,7 +42,7 @@ public class AddToCartPopUpPage extends BasePage {
     }
 
     public AddToCartPopUpPage assertSuccessMessage(){
-        Assert.assertEquals("Product successfully added to your shopping cart", cartSuccessMessage.getText());
+        Assert.assertEquals("Product successfully added to your basket", cartSuccessMessage.getText());
         return this;
     }
 
